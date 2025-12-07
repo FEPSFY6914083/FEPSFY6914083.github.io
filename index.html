@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ENG0018 Conference Project – Galois Theory</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+    h1, h2, h3 { margin-top: 40px; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    table, th, td { border: 1px solid #aaa; }
+    th, td { padding: 8px; text-align: left; }
+    #timestampBox { padding: 10px; border: 1px solid #333; width: fit-content; background: #f5f5f5; }
+  </style>
+</head>
+
+<body>
+
+<h1>ENG0018 Conference Project</h1>
+
+<div id="timestampBox">
+  <strong>Last Modified Time:</strong>
+  <span id="last-updated">Loading…</span>
+</div>
+
+<hr>
+
+<!-- Load README-style Markdown content -->
+<div id="content"></div>
+
+<script>
+// Load index.md into the page
+fetch('index.md')
+  .then(response => response.text())
+  .then(md => {
+    // Convert Markdown → HTML (very basic)
+    md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    md = md.replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>');
+    md = md.replace(/\*(.*)\*/gim, '<em>$1</em>');
+    md = md.replace(/\n$/gim, '<br>');
+    document.getElementById("content").innerHTML = md;
+  });
+</script>
+
+
+<script>
+// Fetch last modified time using GitHub API
+async function getLastUpdated() {
+  const url = "https://api.github.com/repos/FEPSFY6914083/FEPSFY6914083.github.io/commits?per_page=1";
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const date = new Date(data[0].commit.committer.date);
+    document.getElementById("last-updated").textContent =
+      date.toLocaleString("en-GB");
+  } catch (e) {
+    document.getElementById("last-updated").textContent = "Error loading timestamp";
+  }
+}
+
+getLastUpdated();
+</script>
+
+</body>
+</html>
