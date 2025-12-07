@@ -4,12 +4,47 @@
   <meta charset="UTF-8">
   <title>ENG0018 Conference Project – Galois Theory</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-    h1, h2, h3 { margin-top: 40px; }
-    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-    table, th, td { border: 1px solid #aaa; }
-    th, td { padding: 8px; text-align: left; }
-    #timestampBox { padding: 10px; border: 1px solid #333; width: fit-content; background: #f5f5f5; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+      background: #f2f2f2;
+    }
+    h1, h2, h3 {
+      margin-top: 30px;
+    }
+    hr {
+      margin: 25px 0;
+    }
+    #timestampBox {
+      padding: 10px;
+      border: 1px solid #333;
+      width: fit-content;
+      background: #f5f5f5;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 15px 0;
+      background: #ffffff;
+    }
+    table, th, td {
+      border: 1px solid #aaa;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    ul.toc {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .content-box {
+      background: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 
@@ -20,47 +55,246 @@
 <div id="timestampBox">
   <strong>Last Modified Time:</strong>
   <span id="last-updated">Loading…</span>
+  <button onclick="verifyLastUpdatedTime()" style="margin-left:10px;">
+    Verify
+  </button>
 </div>
+
+<div id="word-count" style="margin-top:10px;"></div>
 
 <hr>
 
-<!-- Load README-style Markdown content -->
-<div id="content"></div>
+<div class="content-box">
+
+  <h1>Galois Theory and the Limit of Algebra</h1>
+
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#why-early">Why the Early Formulas Worked</a></li>
+    <li><a href="#abel-ruffini">The Abel–Ruffini Theorem</a></li>
+    <li><a href="#permutations">Permutations of Roots</a></li>
+    <li><a href="#solvable-groups">Solvable Groups and Why They Matter</a></li>
+    <li><a href="#quintic-barrier">The Group Structure Behind the Quintic Barrier</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+
+  <hr>
+
+  <h2 id="abstract">Abstract</h2>
+  <p>
+    For centuries mathematicians searched for general formulas that could solve polynomial equations.
+    Methods for quadratics, cubics and quartics all succeeded by reducing the equations to expressions
+    involving roots. These early successes led to the expectation that a similar method should exist
+    for the quintic. Abel proved this was impossible and Galois later explained why by showing that
+    solvability depends on the structure of the permutations of the roots. When these permutations
+    can be broken into simple layers, as in lower-degree equations, a formula can be built. The quintic
+    fails because its permutation group, S<sub>5</sub>, has no such structure. Its internal organisation
+    prevents any sequence of algebraic steps from matching the behaviour of its roots. This article explores
+    the ideas behind this barrier and shows how Galois theory provides a structural explanation for the
+    failure of a quintic formula.
+  </p>
+
+  <div id="Introduction_InText">
+    <h2 id="introduction">Introduction</h2>
+    <p>
+      The pursuit for general methods to solve polynomial equations has been a key component of mathematics
+      for centuries. The quadratic formula, which may come across as trivial today, represented major progress
+      for mathematicians such as al-Khwarizmi, and later work by Cardano and others in the sixteenth century
+      produced general formulas for cubic and quartic equations (Burton, 2011). This common trend suggested
+      that higher-degree equations should follow the same pattern. If degrees two, three and four had
+      closed-form solutions, it seemed natural to assume a similar method for the fifth degree. Yet every
+      attempt to extend existing techniques failed. As Bruns (2020) observes, this history shows “why formulae
+      exist for equations of degree four or less … and why they do not for degree five or more”.
+    </p>
+    <p>
+      This shift in algebra was that familiar methods were no longer the right tool to solve higher order
+      polynomials. Progress required focusing on the structure of the roots rather than manipulating the
+      equation directly. This leads to the central idea behind Galois theory: the way the roots of a polynomial
+      can be rearranged, while still preserving algebraic relationships, determines whether a formula using
+      radicals can exist (Stewart, 2015). To see why the fifth-degree case behaves differently, it helps to
+      first understand why the earlier formulas were possible.
+    </p>
+  </div>
+
+  <div id="Analysis_InText">
+
+    <h2 id="why-early">Why the Early Formulas Worked</h2>
+    <p>
+      Early mathematicians could explain the earlier successes but the same approach failed once they moved
+      to the fifth degree. With quadratics, completing the square lets you isolate the root in a straightforward
+      way. For cubic and quartic equations, the methods developed by del Ferro, Tartaglia and Cardano turned
+      the problems into forms where the roots could still be written using basic operations and familiar root
+      expressions. The links between the roots stayed simple enough to handle. Even when the working became
+      longer, you could still reach the roots using addition, subtraction, multiplication, division and square
+      or cube roots. This level of structure is what made general formulas possible for degrees two to four.
+    </p>
+
+    <h2 id="abel-ruffini">The Abel–Ruffini Theorem</h2>
+    <p>
+      The difficulty with the fifth degree comes from the way the roots of a quintic polynomial relate to
+      one another. For lower degrees, each method relies on reducing the equation to a simpler form that
+      eventually leads to square or cube roots. This reduction works because the relationships between the
+      roots can be controlled and expressed through those operations. With quintic polynomials, this reduction
+      step breaks down. Approaches such as trying to remove certain terms or constructing auxiliary equations
+      no longer produce expressions that depend only on roots of simpler polynomials. The connections between
+      the five roots become too intricate to be captured through repeated use of square or cube roots. Abel
+      proved this by showing that no sequence of algebraic steps can rearrange a general quintic into a form
+      where the roots can be written using a finite combination of arithmetic operations and root extractions
+      (Stillwell, 2010). This explained why earlier attempts failed and showed that the obstacle was rooted in
+      fifth-degree polynomials rather than in the methods used.
+    </p>
+
+    <h2 id="permutations">Permutations of Roots</h2>
+
+    <p><strong>Table 1. Number of root permutations by degree</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Degree</th>
+          <th>Permutations</th>
+          <th>Group</th>
+          <th>Structure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2</td>
+          <td>2</td>
+          <td>S<sub>2</sub></td>
+          <td>Simple swap</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>6</td>
+          <td>S<sub>3</sub></td>
+          <td>Breaks into subgroups</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>24</td>
+          <td>S<sub>4</sub></td>
+          <td>Still structured</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>120</td>
+          <td>S<sub>5</sub></td>
+          <td>No solvable chain</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      A permutation is simply a way of reordering the roots of a polynomial while keeping track of which root
+      moves to which position. Even a basic quadratic shows how this works. A quadratic has two roots; you can
+      list them as [r<sub>1</sub>, r<sub>2</sub>], so there are only two possible arrangements. Both lists contain
+      the same numbers and the equation keeps all its algebraic relationships. As the degree increases, the
+      number of possible rearrangements grows sharply, as shown in Table 1. Thinking of root behaviour in this
+      way reveals that each polynomial comes with its own set of allowable permutations and understanding this
+      set forms the starting point of Galois’s approach.
+    </p>
+
+    <h2 id="solvable-groups">Solvable Groups and Why They Matter</h2>
+    <p>
+      The cubic is a good place to see how Galois’s ideas connect to an actual formula. A cubic has three roots
+      and the six ways to rearrange them form a group that contains a few smaller, simpler patterns. Some of
+      these rearrangements just cycle the roots and others swap two of them. These smaller patterns sit inside
+      the full group in a way that mirrors how the cubic formula is built. When you solve a cubic, you first
+      form a square-root expression and then use that result inside a cube root. Each step depends on the one
+      before it, which matches the ordered structure inside its permutation group. This is what Galois meant by
+      a solvable group: the symmetries can be broken into stages that line up with the steps in a root-based
+      formula (Stewart, 2015).
+    </p>
+
+    <h2 id="quintic-barrier">The Group Structure Behind the Quintic Barrier</h2>
+    <p>
+      The difficulty with the quintic comes from how its root permutations organise themselves. The five roots
+      can be rearranged in one hundred and twenty different ways and the group formed by these permutations,
+      called S<sub>5</sub>, contains all of them. The key issue is that the permutations in S<sub>5</sub> cannot
+      be arranged into a chain of smaller subgroups that naturally follow one another. In group theory terms,
+      there is no sequence of subgroups where each one is normal in the next and where the quotients are simple
+      enough to match the operations used in root-based formulas. In S<sub>5</sub>, the first non-trivial normal
+      subgroup is the alternating group A<sub>5</sub>, which is simple, meaning it cannot be broken down any
+      further. Because this structure stops at A<sub>5</sub>, there is no step-by-step path through the group that
+      matches the layers needed to build an expression from square or cube roots. This is why no general formula
+      for the quintic can exist.
+    </p>
+
+  </div> <!-- end Analysis_InText -->
+
+  <h2 id="conclusion">Conclusion</h2>
+  <p>
+    The search for general formulas for polynomial equations followed a clear pattern in the lower degrees,
+    where the structure of the roots allowed the equations to be reduced in stages. This pattern breaks at the
+    quintic. Abel showed that no sequence of algebraic steps can reshape a general fifth-degree equation into a
+    form built from simple root expressions. Galois explained why, by linking solvability to the structure of the
+    permutations of the roots. The group S<sub>5</sub> has no layers that match the steps of a root-based formula,
+    which is why the quintic has no general solution.
+  </p>
+
+  <h2 id="references">References</h2>
+  <p>
+    Bruns, P. (2020) ‘Why there is no formula for the quintic’, <em>The Mathematics Enthusiast</em>, 17(1), pp. 23–40.<br>
+    Burton, D. (2011) <em>The History of Mathematics</em>. 7th edn. New York: McGraw-Hill.<br>
+    Stewart, I. (2015) <em>Galois Theory</em>. 4th edn. Boca Raton: CRC Press.<br>
+    Stillwell, J. (2010) <em>Mathematics and Its History</em>. 3rd edn. New York: Springer.
+  </p>
+
+</div> <!-- end content-box -->
 
 <script>
-// Load index.md into the page
-fetch('index.md')
-  .then(response => response.text())
-  .then(md => {
-    // Convert Markdown → HTML (very basic)
-    md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-    md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-    md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-    md = md.replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>');
-    md = md.replace(/\*(.*)\*/gim, '<em>$1</em>');
-    md = md.replace(/\n$/gim, '<br>');
-    document.getElementById("content").innerHTML = md;
-  });
-</script>
-
-
-<script>
-// Fetch last modified time using GitHub API
-async function getLastUpdated() {
+// ---------- Last modified time using GitHub API ----------
+async function getLastUpdatedTime() {
   const url = "https://api.github.com/repos/FEPSFY6914083/FEPSFY6914083.github.io/commits?per_page=1";
-
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    const date = new Date(data[0].commit.committer.date);
-    document.getElementById("last-updated").textContent =
-      date.toLocaleString("en-GB");
+    if (!response.ok) throw new Error("Network response was not ok");
+    const commits = await response.json();
+    if (commits && commits.length > 0) {
+      const lastCommitDate = new Date(commits[0].commit.committer.date);
+      document.getElementById('last-updated').textContent =
+        lastCommitDate.toLocaleString('en-GB');
+    } else {
+      document.getElementById('last-updated').textContent = 'No commits found';
+    }
   } catch (e) {
-    document.getElementById("last-updated").textContent = "Error loading timestamp";
+    document.getElementById('last-updated').textContent = 'Error loading timestamp';
+    console.error(e);
   }
 }
 
-getLastUpdated();
+function verifyLastUpdatedTime() {
+  getLastUpdatedTime().then(() => {
+    alert('Last modified time checked via GitHub API.');
+  });
+}
+
+// ---------- Word count for Introduction + main discussion ----------
+function getWordCountFromElement(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  const text = el.textContent.trim();
+  if (!text) return 0;
+  return text.split(/\s+/).length;
+}
+
+function updateWordCount() {
+  const introCount = getWordCountFromElement('Introduction_InText');
+  const analysisCount = getWordCountFromElement('Analysis_InText');
+  const total = introCount + analysisCount;
+  document.getElementById('word-count').textContent =
+    'Total word count (Introduction + main discussion): ' + total;
+}
+
+// Run on page load
+window.onload = function () {
+  getLastUpdatedTime();
+  updateWordCount();
+};
 </script>
 
 </body>
