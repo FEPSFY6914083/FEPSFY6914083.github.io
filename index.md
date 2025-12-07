@@ -1,4 +1,3 @@
-
 # Galois Theory and the Limit of Algebra
 
 ## Table of Contents
@@ -19,10 +18,15 @@ For centuries mathematicians searched for general formulas that could solve poly
 
 ---
 
+<div id="Introduction_InText">
+
 ## Introduction
 The pursuit for general methods to solve polynomial equations has been a key component of mathematics for centuries. The quadratic formula, which may come across as trivial today, represented major progress for mathematicians such as al-Khwarizmi, and later work by Cardano and others in the sixteenth century produced general formulas for cubic and quartic equations (Burton, 2011). This common trend suggested that higher-degree equations should follow the same pattern. If degrees two, three and four had closed-form solutions, it seemed natural to assume a similar method for the fifth degree. Yet every attempt to extend existing techniques failed. As Bruns (2020) observes, this history shows “why formulae exist for equations of degree four or less … and why they do not for degree five or more”.
 
 This shift in algebra was that familiar methods were no longer the right tool to solve higher order polynomials. Progress required focusing on the structure of the roots rather than manipulating the equation directly. This leads to the central idea behind Galois theory: the way the roots of a polynomial can be rearranged, while still preserving algebraic relationships, determines whether a formula using radicals can exist (Stewart, 2015). To see why the fifth-degree case behaves differently, it helps to first understand why the earlier formulas were possible.
+
+</div>
+<div id="Analysis_InText">
 
 ---
 
@@ -47,6 +51,40 @@ The difficulty with the fifth degree comes from the way the roots of a quintic p
 | 4 | 24 | \(S_4\) | Still structured |
 | 5 | 120 | \(S_5\) | No solvable chain |
 
+<div id="perm-chart" style="width:100%;max-width:600px;height:350px;margin-top:10px;"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+// Load Google Charts and the corechart package
+if (window.google && window.google.charts) {
+  google.charts.load('current', { packages: ['corechart'] });
+  google.charts.setOnLoadCallback(drawPermChart);
+}
+
+// Draw a column chart for permutations by degree
+function drawPermChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Degree', 'Permutations'],
+    ['2', 2],
+    ['3', 6],
+    ['4', 24],
+    ['5', 120]
+  ]);
+
+  var options = {
+    title: 'Number of permutations by degree',
+    legend: { position: 'none' },
+    hAxis: { title: 'Degree' },
+    vAxis: { title: 'Permutations' }
+  };
+
+  var chart = new google.visualization.ColumnChart(
+    document.getElementById('perm-chart')
+  );
+  chart.draw(data, options);
+}
+</script>
+
 A permutation is simply a way of reordering the roots of a polynomial while keeping track of which root moves to which position. Even a basic quadratic shows how this works. A quadratic has two roots; you can list them as \([r_1, r_2]\), so there are only two possible arrangements. Both lists contain the same numbers, and the equation keeps all its algebraic relationships. As the degree increases, the number of possible rearrangements grows sharply, as shown in Table 1. Thinking of root behaviour in this way reveals that each polynomial comes with its own set of allowable permutations, and understanding this set forms the starting point of Galois’s approach.
 
 ---
@@ -59,10 +97,99 @@ The cubic is a good place to see how Galois’s ideas connect to an actual formu
 ## The Group Structure Behind the Quintic Barrier
 The difficulty with the quintic comes from how its root permutations organise themselves. The five roots can be rearranged in one hundred and twenty different ways, and the group formed by these permutations, called \(S_5\), contains all of them. The key issue is that the permutations in \(S_5\) cannot be arranged into a chain of smaller subgroups that naturally follow one another. In group theory terms, there is no sequence of subgroups where each one is normal in the next, and where the quotients are simple enough to match the operations used in root-based formulas. In \(S_5\), the first non-trivial normal subgroup is the alternating group \(A_5\), and \(A_5\) is simple, which means it cannot be broken down any further. Because this structure stops at \(A_5\), there is no step-by-step path through the group that matches the layers needed to build an expression from square or cube roots. This is why no general formula for the quintic can exist.
 
+</div>
+
 ---
 
 ## Conclusion
 The search for general formulas for polynomial equations followed a clear pattern in the lower degrees, where the structure of the roots allowed the equations to be reduced in stages. This pattern breaks at the quintic. Abel showed that no sequence of algebraic steps can reshape a general fifth-degree equation into a form built from simple root expressions. Galois explained why, by linking solvability to the structure of the permutations of the roots. The group \(S_5\) has no layers that match the steps of a root-based formula, which is why the quintic has no general solution.
+
+<hr>
+
+<!-- Last modified time from GitHub -->
+<div id="last-updated">Loading last modified time...</div>
+<button onclick="verifyLastUpdatedTime()" style="display:block;margin:10px 0;padding:6px 12px;">
+  Verify Last Modified Time
+</button>
+
+<!-- Total word count for sections Introduction + main discussion -->
+<p id="totalWordCount"></p>
+
+<script>
+// ///////////////// Last modified time using GitHub API ///////////////////
+
+async function getLastUpdatedTime() {
+  const username = 'FEPSFY6914083';
+  const repo = 'FEPSFY6914083.github.io';
+
+  const url = `https://api.github.com/repos/${username}/${repo}/commits`;
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Error fetching data: ' + response.status + ' - ' + response.statusText);
+    }
+
+    const commits = await response.json();
+    if (commits && commits.length > 0) {
+      const lastCommitDate = new Date(commits[0].commit.committer.date);
+      document.getElementById('last-updated').innerText =
+        'Last Modified Time: ' + lastCommitDate.toLocaleString('en-GB');
+    } else {
+      document.getElementById('last-updated').innerText =
+        'No commits found in the repository.';
+    }
+  } catch (error) {
+    console.error('Error fetching the last updated time:', error);
+    document.getElementById('last-updated').innerText =
+      'Error fetching update time. Please check the repository details.';
+  }
+}
+
+// Called when the button is pressed
+async function verifyLastUpdatedTime() {
+  document.getElementById('last-updated').innerText = 'Verifying...';
+  await getLastUpdatedTime();
+  alert('Last modified time has been successfully verified from GitHub API.');
+}
+
+// ///////////////// Word count for Introduction + Analysis ///////////////////
+
+// Get word count for a section with a given id
+function getSectionWordCount(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (!element) return 0;
+
+  const text = element.textContent.trim();
+  if (text === '') return 0;
+
+  const words = text.split(/\s+/);
+  return words.length;
+}
+
+// Compute and display total word count
+function displayTotalWordCount() {
+  const introCount = getSectionWordCount('Introduction_InText');
+  const analysisCount = getSectionWordCount('Analysis_InText');
+  const total = introCount + analysisCount;
+
+  const p = document.getElementById('totalWordCount');
+  if (p) {
+    p.innerText = 'Total word count (Introduction + main discussion): ' + total;
+  }
+}
+
+// Run both features when the page loads
+window.onload = function () {
+  getLastUpdatedTime();
+  displayTotalWordCount();
+};
+</script>
 
 ---
 
