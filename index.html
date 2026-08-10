@@ -234,7 +234,7 @@
       for the quintic can exist.
     </p>
 
-  </div> <!-- end Analysis_InText -->
+  </div>
 
   <div id="Conclusion_InText">
     <h2 id="conclusion">Conclusion</h2>
@@ -246,7 +246,7 @@
       permutations of the roots. The group S<sub>5</sub> has no layers that match the steps of a root-based formula,
       which is why the quintic has no general solution.
     </p>
-  </div> <!-- end Conclusion_InText -->
+  </div>
 
   <h2 id="presentation">Recorded Presentation</h2>
   <video controls>
@@ -263,13 +263,13 @@
     <span id="ref-stillwell">Stillwell, J. (2010) <em><a href="https://link.springer.com/book/10.1007/978-1-4419-6053-5" target="_blank" rel="noopener">Mathematics and Its History</a></em>. 3rd edn. New York: Springer.</span>
   </p>
 
-</div> <!-- end content-box -->
+</div> 
 
 <script>
-// ---------- Last modified time (robust: GitHub API, then fallback) ----------
+
 async function getLastUpdatedTime() {
   const el = document.getElementById('last-updated');
-  // Fallback value: the file's own last-modified date from the server headers.
+
   const fallback = document.lastModified
     ? new Date(document.lastModified).toLocaleString('en-GB')
     : new Date().toLocaleString('en-GB');
@@ -284,7 +284,7 @@ async function getLastUpdatedTime() {
       el.textContent = fallback;
     }
   } catch (e) {
-    // If the API is rate-limited (403) or unreachable, still show a valid time.
+    
     el.textContent = fallback;
     console.error(e);
   }
@@ -296,7 +296,7 @@ function verifyLastUpdatedTime() {
   });
 }
 
-// ---------- Word count: Introduction + main discussion + conclusion ----------
+
 function getWordCountFromElement(id) {
   const el = document.getElementById(id);
   if (!el) return 0;
